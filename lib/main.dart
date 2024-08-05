@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+void main() async {
+  await dotenv.load(fileName: "assets/env/.env");
   runApp(const MyApp());
 }
 
@@ -48,6 +52,8 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
+  // dart run change_app_package_name:main yt.example.environtment
+
   final String title;
 
   @override
@@ -58,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    String apiKey = dotenv.env['API_KEY'] ?? '';
+    String baseURL = dotenv.env['BASE_URL'] ?? '';
+    log(name: "API_KEY", "$apiKey $_counter $baseURL");
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
